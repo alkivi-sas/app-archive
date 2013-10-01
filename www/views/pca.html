@@ -1,0 +1,31 @@
+<!-- only an div container outside-->
+<div class="row-fluid">
+    <h2>Session List</h2>
+
+    <table class="table table-striped table-condensed table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Session Id<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'id'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'id'; reverse = true"></span></th>
+                <th>Start Date<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'startDate'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'startDate'; reverse = true"></span></th>
+                <th>End Date<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'endDate'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'endDate'; reverse = true"></span></th>
+                <th>Size<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'size'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'size'; reverse = true"></span></th>
+                <th>OVH State<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'ovh_state'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'ovh_state'; reverse = true"></span></th>
+                <th>Local State<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'local_state'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'local_state'; reverse = true"></span></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="session in sessionList | orderBy:predicate:reverse">
+                <td data-ng-bind="session.id"></td>
+                <td data-ng-bind="session.startDate"></td>
+                <td data-ng-bind="session.endDate"></td>
+                <td data-ng-bind="session.size"></td>
+                <td data-ng-bind="session.ovh_state"></td>
+                <td data-ng-bind="session.local_state"></td>
+                <td>
+                    <button type="button" data-ng-click="fixLocation('/session/'+session.id, $event)" class="btn btn-primary btn-small"><span class="glyphicon glyphicon-edit"></span> Go</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

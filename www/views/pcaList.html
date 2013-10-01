@@ -1,0 +1,23 @@
+<!-- only an div container outside-->
+<div class="row-fluid">
+    <h2>PCA List</h2>
+
+    <table class="table table-striped table-condensed table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Service Name<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'serviceName'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'serviceName'; reverse = true"></span></th>
+                <th>PCA Service Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="pca in pcaList | orderBy:predicate:reverse">
+                <td data-ng-bind="pca.serviceName"></td>
+                <td data-ng-bind="pca.pcaServiceName"></td>
+                <td>
+                    <button type="button" data-ng-click="fixLocation('/pca/'+pca.id, $event)" class="btn btn-primary btn-small"><span class="glyphicon glyphicon-edit"></span> Go</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

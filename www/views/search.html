@@ -1,0 +1,45 @@
+<!-- only an div container outside-->
+<div class="row-fluid">
+    <h2>Search for a file</h2>
+    <form>
+        <fieldset>
+            <legend>Enter criteria</legend>
+            <div class="form-group">
+                <label for="exampleInputEmail">File Name</label>
+                <input type="text" class="form-control" data-ng-model="fileName" placeholder="Enter fileName">
+            </div>
+            <button type="submit" class="btn btn-default" data-ng-click="search()">Submit</button>
+        </fieldset>
+    </form>
+
+    <div data-ng-show="files.length > 0">
+        <h2>File List</h2>
+
+        <table class="table table-striped table-condensed table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Long Name<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'name'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'name'; reverse = true"></span></th>
+                    <th>Short Name<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'fileName'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'fileName'; reverse = true"></span></th>
+                    <th>Type<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'type'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'type'; reverse = true"></span></th>
+                    <th>Size<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'size'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'size'; reverse = true"></span></th>
+                    <th>OVH State<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'ovh_state'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'ovh_state'; reverse = true"></span></th>
+                    <th>Local State<span class="glyphicon glyphicon-arrow-up" data-ng-click="predicate = 'local_state'; reverse = false"></span><span class="glyphicon glyphicon-arrow-down" data-ng-click="predicate = 'local_state'; reverse = true"></span></th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="file in files | orderBy:predicate:reverse">
+                    <td data-ng-bind="file.name"></td>
+                    <td data-ng-bind="file.fileName"></td>
+                    <td data-ng-bind="file.type"></td>
+                    <td data-ng-bind="file.size"></td>
+                    <td data-ng-bind="file.ovh_state"></td>
+                    <td data-ng-bind="file.local_state"></td>
+                    <td>
+                        <button type="button" data-ng-click="fixLocation('/file/'+file.id, $event)" class="btn btn-primary btn-small"><span class="glyphicon glyphicon-edit"></span> Go</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

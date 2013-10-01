@@ -121,6 +121,20 @@ def getDirSize(dir):
             total_size += os.path.getsize(fp)
     return total_size
 
+def getValidFiles(dir):
+    validFiles = []
+    excludeFiles = ['@eaDir']
+
+    import glob
+    for filename in glob.glob(os.path.join(dir, '*')):
+        # Remove todoPath from filename
+        wantedFilename = filename[len(dir)+1:len(filename)]
+        if(wantedFilename in excludeFiles):
+            pass
+        else:
+            validFiles.append(filename)
+
+    return validFiles
 
 #
 # Load conf
@@ -187,7 +201,7 @@ def main():
     # TODO : exclude doing and done path ?
     import glob
     logger.debug('Testing if we have some file to archive')
-    if(len(glob.glob(os.path.join(todoPath, '*'))) == 0):
+    if(len(getValidFiles(todoPath)) == 0):
         logger.log('Directory %s is empty, abording archive' % (todoPath))
         return
     logger.debug('We do have some file to archive :)')
@@ -195,7 +209,7 @@ def main():
     # Move files to a doing repository
     logger.debug('Moving data to temp dir')
     import shutil
-    for filename in glob.glob(os.path.join(todoPath, '*')):
+    for filename in getValidFiles(todoPath):
         if(dryrun):
             logger.debug('Drymode is activated, i would have move %s to %s' % (filename, todoPath))
         else:
@@ -244,7 +258,7 @@ def main():
         logger.log("DRYMODE : i would have created %s and mv %s/* in it" % ( finalPath, doingPath))
     else:
         os.mkdir(finalPath)
-        for filename in glob.glob(os.path.join(doingPath, '*')):
+        for filename in getValidFiles(doingPath):
             logger.debug('Moving %s to %s' % (filename, finalPath))
             shutil.move(filename, finalPath)
 
